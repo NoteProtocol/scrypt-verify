@@ -1,15 +1,13 @@
 {
   "name": "scrypt-verify",
   "version": "1.0.0",
-  "description": "Offchain Verify Scypt Smart Contract",
+  "description": "Offchain Verify Scrypt Smart Contract",
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "postinstall": "npm run build",
-    "prepublishOnly": "npm run build"
+    "prepare": "npm run build"
   },
   "files": [
-    "src",
     "dist"
   ],
   "keywords": [],
