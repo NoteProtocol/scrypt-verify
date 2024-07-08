@@ -5,6 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
+    "preinstall": "npm run build",
     "prepublishOnly": "npm run build"
   },
   "files": [
