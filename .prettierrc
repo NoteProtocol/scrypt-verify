@@ -1,0 +1,17 @@
+{
+  "endOfLine": "auto",
+  "overrides": [
+    {
+      "files": "*.ts",
+      "options": {
+        "semi": true,
+        "printWidth": 170,
+        "tabWidth": 2,
+        "useTabs": false,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "bracketSpacing": true
+      }
+    }
+  ]
+}

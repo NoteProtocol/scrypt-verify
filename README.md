@@ -1,2 +1,3 @@
-# sc-verify
-Offchain Verify Smart Contract
+# scrypt-verify
+
+Offchain Verify Scypt Smart Contract
