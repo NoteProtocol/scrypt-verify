@@ -1,8 +1,6 @@
 import type { Artifact, SupportedParamType, TxContext } from 'scryptlib';
 import { buildContractClass, getValidatedHexString } from 'scryptlib';
 
-// import {byteString2Int} from "./utils";
-
 export function buildOfflineContractInstance(abiJson: Artifact, dataMap: any) {
   const constructor = 'constructor';
   const paramsMap: Record<string, SupportedParamType[]> = {
@@ -34,7 +32,12 @@ export function buildOfflineContractInstance(abiJson: Artifact, dataMap: any) {
           } else if (param.type === 'bytes') {
             params.push(getValidatedHexString(data[param.name]));
           } else {
-            params.push(data[param.name]);
+            const r = parseAbiType(param.type);
+            if (r.length > 0 && Array.isArray(data[param.name])) {
+              params.push(data[param.name].slice(0, r.length));
+            } else {
+              params.push(data[param.name]);
+            }
           }
         } else {
           if (param.type === 'int') {
@@ -61,4 +64,15 @@ export function offlineVerify(abiJson: Artifact, dataMap: object, method: string
   const unlocking = N20.abiCoder.encodePubFunctionCall(instance, method, paramsMap[method]!);
   const result = instance.run_verify(unlocking.unlockingScript);
   return result;
+}
+
+function parseAbiType(abiType: string): { type: string; length: number } {
+  const match = abiType.match(/([a-zA-Z]+)\[(\d+)\]/);
+
+  if (match) {
+    const [, type, length] = match;
+    return { type, length: parseInt(length, 10) };
+  } else {
+    return { type: abiType, length: 0 };
+  }
 }

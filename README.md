@@ -18,4 +18,14 @@ pnpm add scrypt-verify@NoteProtocol/scrypt-verify
 import { offlineVerify } from "scrypt-verify";
 ```
 
+## versions
+
+### 1.1.0
+
+- Support Array Type
+
+### 1.0.0
+
+- First verison
+
 MIT License

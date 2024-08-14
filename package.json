@@ -1,6 +1,6 @@
 {
   "name": "scrypt-verify",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Offchain Verify Scrypt Smart Contract",
   "main": "./dist/index.js",
   "scripts": {
@@ -22,12 +22,12 @@
   "author": "LONG LI <lilong@gmil.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.14.10",
+    "@types/node": "^20.14.15",
     "chalk": "^4.1.2",
-    "glob": "^10.4.3",
-    "ts-node": "^10.9.2",
+    "glob": "^10.4.5",
     "minimist": "^1.2.8",
-    "typescript": "^5.5.3"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   },
   "dependencies": {
     "scryptlib": "github:chainbow/scryptlib"
