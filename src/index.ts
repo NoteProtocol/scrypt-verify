@@ -26,7 +26,11 @@ export function buildOfflineContractInstance(abiJson: Artifact, dataMap: any) {
             if (typeof data[param.name] === 'number' || typeof data[param.name] === 'bigint') {
               params.push(BigInt(data[param.name]));
             } else {
-              //a buffer
+              //don't use this for single type
+              //if (param.type === 'bytes'){
+              //  params.push(BigInt(data[param.name]));
+              //}
+              //support bigint of a buffer
               // params.push(byteString2Int(data[param.name].toString("hex")));
             }
           } else if (param.type === 'bytes') {
@@ -34,7 +38,24 @@ export function buildOfflineContractInstance(abiJson: Artifact, dataMap: any) {
           } else {
             const r = parseAbiType(param.type);
             if (r.length > 0 && Array.isArray(data[param.name])) {
-              params.push(data[param.name].slice(0, r.length));
+              const values = data[param.name].slice(0, r.length);
+              if (param.type === 'int') {
+                for (let i = 0; i < values.length; i++) {
+                  values[i] = BigInt(values[i]);
+                }
+              }
+              for (let i = values.length; i < r.length; i++) {
+                if (param.type === 'int') {
+                  values.push(0n);
+                } else if (param.type === 'bool') {
+                  values.push(false);
+                } else if (param.type === 'bytes') {
+                  values.push('');
+                } else {
+                  //do nothing
+                }
+              }
+              params.push(values);
             } else {
               params.push(data[param.name]);
             }
