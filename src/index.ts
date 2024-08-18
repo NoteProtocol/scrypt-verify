@@ -39,17 +39,17 @@ export function buildOfflineContractInstance(abiJson: Artifact, dataMap: any) {
             const r = parseAbiType(param.type);
             if (r.length > 0 && Array.isArray(data[param.name])) {
               const values = data[param.name].slice(0, r.length);
-              if (param.type === 'int') {
+              if (r.type === 'int') {
                 for (let i = 0; i < values.length; i++) {
                   values[i] = BigInt(values[i]);
                 }
               }
               for (let i = values.length; i < r.length; i++) {
-                if (param.type === 'int') {
+                if (r.type === 'int') {
                   values.push(0n);
-                } else if (param.type === 'bool') {
+                } else if (r.type === 'bool') {
                   values.push(false);
-                } else if (param.type === 'bytes') {
+                } else if (r.type === 'bytes') {
                   values.push('');
                 } else {
                   //do nothing
